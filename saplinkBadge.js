@@ -4,17 +4,21 @@ function loadXMLDoc(url) {
 	if(window.XMLHttpRequest && !(window.ActiveXObject)) {
 		try {
 			req = new XMLHttpRequest();
-		} catch(e) {
+		}
+		catch(e) {
 			req = false;
 		}
 	// branch for IE/Windows ActiveX version
-	} else if(window.ActiveXObject) {
+	} 
+	else if(window.ActiveXObject) {
 		try {
 			req = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch(e) {
+		} 
+		catch(e) {
 			try {
 				req = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch(e) {
+			} 
+			catch(e) {
 				req = false;
 			}
 		}
@@ -37,5 +41,3 @@ if (req.readyState == 4) {
 			req.statusText);
 	}
 }
-
-loadXMLDoc('http://code.google.com/p/saplink/downloads/list');	
