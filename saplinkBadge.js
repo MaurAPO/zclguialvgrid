@@ -32,12 +32,15 @@ function loadXMLDoc(url) {
 
 function processReqChange() {
 // only if req shows "loaded"
-if (req.readyState == 4) {
-	// only if "OK"
-	if (req.status == 200) {
-		alert ('got a doc');
-	} else {
-		alert("There was a problem retrieving the XML data:\n" +
-			req.statusText);
+	if (req.readyState == 4) {
+		// only if "OK"
+		if (req.status == 200) {
+			alert ('got a doc');
+		} else {
+			alert("There was a problem retrieving the XML data:\n" +
+				req.statusText);
+		}
 	}
 }
+
+loadXMLDoc('http://code.google.com/p/saplink/downloads/list');
