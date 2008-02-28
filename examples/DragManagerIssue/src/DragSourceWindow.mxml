@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="300"
+	title="DragSourceWindow">
+	<mx:Script>
+		<![CDATA[
+			import mx.managers.DragManager;
+			import mx.controls.Image;
+			import mx.core.DragSource;	
+			private function onMouseMove(event:MouseEvent):void{
+				var dragSource:DragSource = new DragSource();
+				dragSource.addData("test!","someData");
+				var dragProxy:Image = new Image();
+				var bmpData:BitmapData;
+				var bmp:Bitmap;
+				bmpData = new BitmapData(dragMe.width, dragMe.height);
+				bmpData.draw(dragMe);
+				bmp = new Bitmap(bmpData);
+				dragProxy.source = bmp;
+				DragManager.doDrag(dragMe,dragSource,event,dragProxy);
+				if(DragManager.isDragging)
+					trace("drag occuring.");
+
+			}
+		]]>
+	</mx:Script>
+	<mx:Canvas id="dragMe" x="10" y="10" width="131" height="104" backgroundColor="#E03737" mouseMove="onMouseMove(event)">
+		<mx:Label text="Drag Me" horizontalCenter="0" verticalCenter="0" fontSize="17" color="#000000"/>
+	</mx:Canvas>	
+</mx:Window>
