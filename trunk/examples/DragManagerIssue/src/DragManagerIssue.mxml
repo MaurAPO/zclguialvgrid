@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+	initialize="onInit(event)"
+	closing="onClosing(event)" width="325" height="325"
+	title="MainWindow">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.controls.Image;
+			import mx.core.DragSource;
+			import mx.managers.DragManager;
+			import mx.events.DragEvent;
+			private var _targetWindow:DragTargetWindow = new DragTargetWindow();
+			private var _dragSourceWindow:DragSourceWindow = new DragSourceWindow();
+			private function onInit(event:Event):void{
+				_targetWindow.open(true);
+				_dragSourceWindow.open(false);
+			}
+			private function onClosing(event:Event):void{
+				_targetWindow.close();
+				_dragSourceWindow.close();
+			}
+			private function onMouseMove(event:MouseEvent):void{
+				var dragSource:DragSource = new DragSource();
+				dragSource.addData("test!","someData");
+				var dragProxy:Image = new Image();
+				var bmpData:BitmapData;
+				var bmp:Bitmap;
+				bmpData = new BitmapData(dragMe.width, dragMe.height);
+				bmpData.draw(dragMe);
+				bmp = new Bitmap(bmpData);
+				dragProxy.source = bmp;
+				DragManager.doDrag(dragMe,dragSource,event,dragProxy);
+				if(DragManager.isDragging)
+					trace("drag occuring.");
+
+			}
+			private function onDragEnter(event:DragEvent):void{
+				DragManager.acceptDragDrop(event.currentTarget as UIComponent);
+				trace("dragged in");
+			}
+			private function onDragDrop(event:DragEvent):void{
+				trace("Dropped");
+			}			
+		]]>
+	</mx:Script>
+	<mx:Canvas id="dragMe" x="10" y="10" width="131" height="104" backgroundColor="#E03737" mouseMove="onMouseMove(event)">
+		<mx:Label text="Drag Me" horizontalCenter="0" verticalCenter="0" fontSize="17" color="#000000"/>
+	</mx:Canvas>		
+	<mx:Panel x="10" y="113" width="250" height="200" layout="absolute" title="Target" dragEnter="onDragEnter(event)" dragDrop="onDragDrop(event)">
+	</mx:Panel>
+
+</mx:WindowedApplication>

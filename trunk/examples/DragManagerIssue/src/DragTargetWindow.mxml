@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Window xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" width="400" height="300"
+	dragEnter="onDragEnter(event)"
+	dragDrop="onDragDrop(event)"
+	title="DragTargetWindow">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.managers.DragManager;
+			import mx.events.DragEvent;
+			private function onDragEnter(event:DragEvent):void{
+				DragManager.acceptDragDrop(event.currentTarget as UIComponent);
+				trace("dragged in");
+			}
+			private function onDragDrop(event:DragEvent):void{
+				trace("Dropped");
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Window>
